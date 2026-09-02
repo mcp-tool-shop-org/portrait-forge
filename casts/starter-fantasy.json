@@ -434,7 +434,7 @@
         },
         {
           "id": "tunic",
-          "claim": "the charred, burnt remnants of a plain sexton's work tunic",
+          "claim": "a burnt, threadbare medieval tunic and hose, charred at the hems",
           "expected": "yes",
           "required": true
         },
@@ -473,9 +473,15 @@
           "claim": "a weapon in hand",
           "expected": "no",
           "required": true
+        },
+        {
+          "id": "no_modern_clothes",
+          "claim": "a modern work shirt, overalls or trousers",
+          "expected": "no",
+          "required": true
         }
       ],
-      "pcraftPrompt": "a painted character concept on a plain pale background, dead, desiccated or decayed flesh, a palette of grave grey, bone white and bruise violet with a cold accent, a hulking, broad-shouldered, hunched undead ghoul, an ash-caked snarling face with cracked black lips and ember-dim eyes, a hairless scalp cracked like cooled lava, the charred, burnt remnants of a plain sexton's work tunic, bare clawed hands, a dying-ember orange glow in the cracks of the skin, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+      "pcraftPrompt": "a painted character concept on a plain pale background, dead, desiccated or decayed flesh, a palette of grave grey, bone white and bruise violet with a cold accent, a hulking, broad-shouldered, hunched undead ghoul, an ash-caked snarling face with cracked black lips and ember-dim eyes, a hairless scalp cracked like cooled lava, a burnt, threadbare medieval tunic and hose, charred at the hems, bare clawed hands, a dying-ember orange glow in the cracks of the skin, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
     }
   },
   {
