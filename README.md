@@ -1,5 +1,12 @@
 # portrait-forge
 
+> **On hold (Director ruling 2026-09-02).** The cast-sheet workflow this repo
+> was first driven with implies a fixed roster; the game needs portraits made
+> as needed so every character is unique. The tool stays as built (contract
+> path, batched lens, three backends, gate, registry); its next driver is a
+> runtime-derived contract per entity, not a cast file. Do not resume until
+> the Director asks.
+
 Consistent character portraits from text descriptions: one pinned ComfyUI
 workflow (local ComfyUI, Comfy Cloud, or a file-drop hand-off), a house-style
 LoRA, a question-based acceptance gate with a vision verifier, and a
