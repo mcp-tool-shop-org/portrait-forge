@@ -1,0 +1,136 @@
+{
+  "_meta": {
+    "id": "qwen-edit.variant",
+    "description": "Variant edit from canonical: Qwen-Image-Edit 2511 fp8mixed, identity carried by the reference image (not by the seed), variant named in the edit prompt. design B2 §2 (findings 1-11): canonical first, variants always edited from canonical, never from a prior variant. Topology copied from the Comfy 'Image Edit (Qwen 2511)' starter template (FluxKontextImageScale -> VAEEncode for the starting latent + TextEncodeQwenImageEditPlus for identity/edit conditioning, FluxKontextMultiReferenceLatentMethod on both branches, CFGNorm on the model).",
+    "slots": ["{{canonical_image}}", "{{edit_prompt}}", "{{seed}}", "{{prefix}}"]
+  },
+  "20": {
+    "class_type": "LoadImage",
+    "_meta": { "title": "Load canonical image (uploaded via /upload/image before this graph runs)" },
+    "inputs": {
+      "image": "{{canonical_image}}"
+    }
+  },
+  "21": {
+    "class_type": "UNETLoader",
+    "_meta": { "title": "Load Diffusion Model (edit model, fp8mixed per rig catalog)" },
+    "inputs": {
+      "unet_name": "qwen_image_edit_2511_fp8mixed.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "22": {
+    "class_type": "CLIPLoader",
+    "_meta": { "title": "Load CLIP" },
+    "inputs": {
+      "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image"
+    }
+  },
+  "23": {
+    "class_type": "VAELoader",
+    "_meta": { "title": "Load VAE" },
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    }
+  },
+  "24": {
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": { "title": "ModelSamplingAuraFlow (shift pinned per Qwen-Image-Edit 2511 starter template)" },
+    "inputs": {
+      "model": ["21", 0],
+      "shift": 3.1
+    }
+  },
+  "25": {
+    "class_type": "CFGNorm",
+    "_meta": { "title": "CFGNorm (edit-model guidance normalization, per starter template)" },
+    "inputs": {
+      "model": ["24", 0],
+      "strength": 1.0
+    }
+  },
+  "26": {
+    "class_type": "FluxKontextImageScale",
+    "_meta": { "title": "Scale canonical image to the edit model's optimal size before use as latent seed + identity reference" },
+    "inputs": {
+      "image": ["20", 0]
+    }
+  },
+  "27": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": { "title": "Positive: edit prompt + canonical image as identity reference" },
+    "inputs": {
+      "clip": ["22", 0],
+      "prompt": "{{edit_prompt}}",
+      "vae": ["23", 0],
+      "image1": ["26", 0]
+    }
+  },
+  "28": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": { "title": "Negative: empty prompt, same image reference" },
+    "inputs": {
+      "clip": ["22", 0],
+      "prompt": "",
+      "vae": ["23", 0],
+      "image1": ["26", 0]
+    }
+  },
+  "29": {
+    "class_type": "FluxKontextMultiReferenceLatentMethod",
+    "_meta": { "title": "Edit Model Reference Method (positive)" },
+    "inputs": {
+      "conditioning": ["27", 0],
+      "reference_latents_method": "index_timestep_zero"
+    }
+  },
+  "30": {
+    "class_type": "FluxKontextMultiReferenceLatentMethod",
+    "_meta": { "title": "Edit Model Reference Method (negative)" },
+    "inputs": {
+      "conditioning": ["28", 0],
+      "reference_latents_method": "index_timestep_zero"
+    }
+  },
+  "31": {
+    "class_type": "VAEEncode",
+    "_meta": { "title": "Encode scaled canonical image as the starting latent" },
+    "inputs": {
+      "pixels": ["26", 0],
+      "vae": ["23", 0]
+    }
+  },
+  "32": {
+    "class_type": "KSampler",
+    "_meta": { "title": "KSampler (fixed sampler/scheduler/steps/cfg, denoise 1.0 -- identity is carried by the conditioning images, not by the starting latent, per the starter template)" },
+    "inputs": {
+      "model": ["25", 0],
+      "seed": "{{seed}}",
+      "steps": 40,
+      "cfg": 4.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "positive": ["29", 0],
+      "negative": ["30", 0],
+      "latent_image": ["31", 0],
+      "denoise": 1.0
+    }
+  },
+  "33": {
+    "class_type": "VAEDecode",
+    "_meta": { "title": "VAE Decode" },
+    "inputs": {
+      "samples": ["32", 0],
+      "vae": ["23", 0]
+    }
+  },
+  "34": {
+    "class_type": "SaveImage",
+    "_meta": { "title": "Save Image" },
+    "inputs": {
+      "images": ["33", 0],
+      "filename_prefix": "{{prefix}}"
+    }
+  }
+}
