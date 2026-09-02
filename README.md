@@ -64,6 +64,31 @@ agent submits the graphs (`submit_batch`), downloads each PNG into
 2026-09-02: the starter-fantasy cast's 18 candidates rendered on Comfy Cloud
 from these graphs with the fp8 Qwen-Image-2512 base.
 
+## Descriptions come from prompt-craft contracts
+
+Director ruling (2026-09-02): a portrait's description is a **prompt-craft
+contract** -- typed, depictable, individually checkable atoms -- never
+hand-written prose. Sex, species, age band, signature garment and prop are
+`must_have` atoms stated outright; what the picture must not become is a
+`must_not` atom verified on the pixels. A character contract extends its
+faction's and may only raise requirements.
+
+```
+node scripts/from-contracts.mjs --roster casts/starter-fantasy.roster.json   --contracts-dir E:/AI/claude-rpg/dogfood/portraits/contracts --out casts/starter-fantasy.json
+```
+
+For each roster entry the bridge resolves the character contract and its
+faction, runs `pcraft synth --json` as validator and provenance witness, and
+emits an `EntityDescription` carrying `contract: { id, atoms, pcraftPrompt }`.
+With a contract present, the prompter's positive is `[style token] [every
+expected-yes atom, contract order] [shot]` and its negative is every
+expected-no atom plus the frozen technical negatives; the gate asks **one
+question per atom** (must_have expects yes, must_not expects no, `required`
+follows severity). The slot fields are ignored and do not move the description
+hash. Contracts live with the game that owns the canon (claude-rpg:
+`dogfood/portraits/contracts/{factions,characters}`); `pcraft` comes from
+`E:/AI/prompt-craft` (`PCRAFT` env names the executable).
+
 ## The gate
 
 From the entity's own description the app builds eight positively-phrased,
