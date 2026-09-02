@@ -1,0 +1,8 @@
+[
+  { "contract": "char:pilgrim", "id": "pilgrim", "name": "Suspicious Pilgrim", "kind": "npc", "tags": ["npc", "named", "pilgrim", "story"], "packId": "starter-fantasy", "faction": "chapel-folk", "shapeTilt": "angular" },
+  { "contract": "char:brother-aldric", "id": "brother-aldric", "name": "Brother Aldric", "kind": "npc", "tags": ["npc", "named", "monk", "chapel"], "packId": "starter-fantasy", "faction": "chapel-folk", "shapeTilt": "rounded" },
+  { "contract": "char:sister-maren", "id": "sister-maren", "name": "Sister Maren", "kind": "npc", "tags": ["npc", "recruitable", "diplomat", "scholar", "chapel"], "packId": "starter-fantasy", "faction": "chapel-folk", "shapeTilt": "balanced" },
+  { "contract": "char:crypt-stalker", "id": "crypt-stalker", "name": "Crypt Stalker", "kind": "monster", "tags": ["enemy", "undead", "skirmisher", "crypt"], "packId": "starter-fantasy", "faction": "chapel-undead", "shapeTilt": "jagged" },
+  { "contract": "char:ash-ghoul", "id": "ash-ghoul", "name": "Ash Ghoul", "kind": "monster", "tags": ["enemy", "undead", "brute", "crypt"], "packId": "starter-fantasy", "faction": "chapel-undead", "shapeTilt": "broken" },
+  { "contract": "char:crypt-warden", "id": "crypt-warden", "name": "Crypt Warden", "kind": "monster", "tags": ["enemy", "undead", "boss", "crypt"], "packId": "starter-fantasy", "faction": "chapel-undead", "major": true, "shapeTilt": "asymmetric" }
+]

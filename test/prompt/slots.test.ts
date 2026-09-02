@@ -159,3 +159,32 @@ describe('deriveSeed', () => {
     expect(a).not.toBe(b);
   });
 });
+
+describe('contract path (Director ruling 2026-09-02)', () => {
+  const base: EntityDescription = {
+    id: 'pilgrim', name: 'Suspicious Pilgrim', kind: 'npc', tags: [], packId: 'starter-fantasy',
+    contract: {
+      id: 'char:pilgrim',
+      atoms: [
+        { id: 'sex_age', claim: 'a middle-aged man with a lean, sun-lined face', expected: 'yes', required: true },
+        { id: 'cloak', claim: "a grey pilgrim's cloak with a scallop-shell badge", expected: 'yes', required: true },
+        { id: 'no_wimple', claim: "a nun's wimple, veil or habit", expected: 'no', required: true },
+        { id: 'no_woman', claim: 'a woman', expected: 'no', required: true },
+      ],
+    },
+  };
+
+  it('the positive prompt is style token + every expected-yes atom in contract order + shot; negatives carry the expected-no atoms', () => {
+    const p = buildPrompt(base);
+    expect(p.positive).toBe("sfhd style, a middle-aged man with a lean, sun-lined face, a grey pilgrim's cloak with a scallop-shell badge, bust character concept, plain pale background");
+    expect(p.negative.startsWith("a nun's wimple, veil or habit, a woman, ")).toBe(true);
+  });
+
+  it('a changed atom changes the description hash; the slot fields are ignored when a contract is present', () => {
+    const h1 = descriptionHash(base);
+    const h2 = descriptionHash({ ...base, species: 'ignored on the contract path' });
+    const h3 = descriptionHash({ ...base, contract: { ...base.contract!, atoms: [...base.contract!.atoms.slice(0, 3)] } });
+    expect(h2).toBe(h1);
+    expect(h3).not.toBe(h1);
+  });
+});

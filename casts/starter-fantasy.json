@@ -3,96 +3,578 @@
     "id": "pilgrim",
     "name": "Suspicious Pilgrim",
     "kind": "npc",
-    "species": "human woman",
-    "bodyClass": "slight, road-worn",
-    "age": "middle-aged",
-    "face": "narrow watchful face, sun-lined, guarded eyes",
-    "hair": "dark hair bound under a travel-stained wimple",
-    "garb": "grey pilgrim's cloak with a scallop-shell badge, staff in hand",
-    "mood": "wary, weighing you",
-    "palette": "ash grey with a single dull red badge",
-    "tags": ["npc", "named", "pilgrim", "story"],
+    "tags": [
+      "npc",
+      "named",
+      "pilgrim",
+      "story"
+    ],
     "packId": "starter-fantasy",
-    "shapeTilt": "angular"
+    "faction": "chapel-folk",
+    "shapeTilt": "angular",
+    "contract": {
+      "id": "char:pilgrim",
+      "atoms": [
+        {
+          "id": "painted_look",
+          "claim": "a painted character concept on a plain pale background",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "worn_cloth",
+          "claim": "worn, travel-stained medieval cloth garments",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "palette",
+          "claim": "a muted palette of ash grey, brown and bone white",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "sex_age",
+          "claim": "a middle-aged man with a lean, sun-lined face and several days of stubble",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "hood",
+          "claim": "a grey travel hood pushed half back over dark, unkempt hair",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "cloak",
+          "claim": "a grey pilgrim's cloak with a scallop-shell badge sewn on the breast",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "staff",
+          "claim": "a rough wooden walking staff held in one hand",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "gaze",
+          "claim": "a wary, sidelong, weighing gaze",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "red_badge",
+          "claim": "one small dull-red cloth patch on the cloak",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "no_modern",
+          "claim": "a firearm or any modern technology",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_armor_plate",
+          "claim": "polished plate armor",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_wimple",
+          "claim": "a nun's wimple, veil or habit",
+          "expected": "no",
+          "required": true
+        },
+        {
+          "id": "no_woman",
+          "claim": "a woman",
+          "expected": "no",
+          "required": true
+        },
+        {
+          "id": "no_weapon",
+          "claim": "a sword or an axe",
+          "expected": "no",
+          "required": false
+        }
+      ],
+      "pcraftPrompt": "a painted character concept on a plain pale background, worn, travel-stained medieval cloth garments, a muted palette of ash grey, brown and bone white, a middle-aged man with a lean, sun-lined face and several days of stubble, a grey travel hood pushed half back over dark, unkempt hair, a grey pilgrim's cloak with a scallop-shell badge sewn on the breast, a rough wooden walking staff held in one hand, a wary, sidelong, weighing gaze, one small dull-red cloth patch on the cloak, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+    }
   },
   {
     "id": "brother-aldric",
     "name": "Brother Aldric",
     "kind": "npc",
-    "species": "human man",
-    "bodyClass": "stooped, thin",
-    "age": "old",
-    "face": "long gentle face, hollow cheeks, tired kind eyes",
-    "hair": "tonsured white hair, close grey beard",
-    "garb": "brown wool monk's habit, rope belt, wooden holy pendant",
-    "mood": "burdened but warm",
-    "palette": "brown and bone white with a candle-gold accent",
-    "tags": ["npc", "named", "monk", "chapel"],
+    "tags": [
+      "npc",
+      "named",
+      "monk",
+      "chapel"
+    ],
     "packId": "starter-fantasy",
-    "shapeTilt": "rounded"
+    "faction": "chapel-folk",
+    "shapeTilt": "rounded",
+    "contract": {
+      "id": "char:brother-aldric",
+      "atoms": [
+        {
+          "id": "painted_look",
+          "claim": "a painted character concept on a plain pale background",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "worn_cloth",
+          "claim": "worn, travel-stained medieval cloth garments",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "palette",
+          "claim": "a muted palette of ash grey, brown and bone white",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "sex_age",
+          "claim": "an old man with a long gentle face, hollow cheeks and tired kind eyes",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "tonsure",
+          "claim": "a monk's tonsure with white hair and a close grey beard",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "habit",
+          "claim": "a brown wool monk's habit with a rope belt",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "pendant",
+          "claim": "a small wooden holy pendant on a cord",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "candle",
+          "claim": "warm candle-gold light on one side of the face",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "no_modern",
+          "claim": "a firearm or any modern technology",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_armor_plate",
+          "claim": "polished plate armor",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_helmet",
+          "claim": "a helmet or hood covering the head",
+          "expected": "no",
+          "required": true
+        },
+        {
+          "id": "no_woman",
+          "claim": "a woman",
+          "expected": "no",
+          "required": true
+        }
+      ],
+      "pcraftPrompt": "a painted character concept on a plain pale background, worn, travel-stained medieval cloth garments, a muted palette of ash grey, brown and bone white, an old man with a long gentle face, hollow cheeks and tired kind eyes, a monk's tonsure with white hair and a close grey beard, a brown wool monk's habit with a rope belt, warm candle-gold light on one side of the face, a small wooden holy pendant on a cord, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+    }
   },
   {
     "id": "sister-maren",
     "name": "Sister Maren",
     "kind": "npc",
-    "species": "human woman",
-    "bodyClass": "upright, composed",
-    "age": "young adult",
-    "face": "keen oval face, arched brows, steady scholar's gaze",
-    "hair": "auburn hair pinned back under a plain white veil",
-    "garb": "black-and-white novice's habit, ink-stained fingers, a satchel of papers",
-    "mood": "measured, diplomatic",
-    "palette": "black and white with a deep blue ink accent",
-    "tags": ["npc", "recruitable", "diplomat", "scholar", "chapel"],
+    "tags": [
+      "npc",
+      "recruitable",
+      "diplomat",
+      "scholar",
+      "chapel"
+    ],
     "packId": "starter-fantasy",
-    "shapeTilt": "balanced"
+    "faction": "chapel-folk",
+    "shapeTilt": "balanced",
+    "contract": {
+      "id": "char:sister-maren",
+      "atoms": [
+        {
+          "id": "painted_look",
+          "claim": "a painted character concept on a plain pale background",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "worn_cloth",
+          "claim": "worn, travel-stained medieval cloth garments",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "palette",
+          "claim": "a muted palette of ash grey, brown and bone white",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "sex_age",
+          "claim": "a young woman with a keen oval face, arched brows and a steady scholar's gaze",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "veil",
+          "claim": "a plain white novice's veil over pinned-back auburn hair",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "habit",
+          "claim": "a black-and-white novice's habit",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "ink",
+          "claim": "ink-stained fingertips",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "satchel",
+          "claim": "a leather satchel of papers at the hip",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "no_modern",
+          "claim": "a firearm or any modern technology",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_armor_plate",
+          "claim": "polished plate armor",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_man",
+          "claim": "a man",
+          "expected": "no",
+          "required": true
+        },
+        {
+          "id": "no_weapon",
+          "claim": "a weapon in hand",
+          "expected": "no",
+          "required": false
+        }
+      ],
+      "pcraftPrompt": "a painted character concept on a plain pale background, worn, travel-stained medieval cloth garments, a muted palette of ash grey, brown and bone white, a young woman with a keen oval face, arched brows and a steady scholar's gaze, a plain white novice's veil over pinned-back auburn hair, a black-and-white novice's habit, ink-stained fingertips, a leather satchel of papers at the hip, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+    }
   },
   {
     "id": "crypt-stalker",
     "name": "Crypt Stalker",
     "kind": "monster",
-    "species": "undead humanoid",
-    "bodyClass": "gaunt, long-limbed, crouched",
-    "age": "long dead",
-    "face": "sunken eyeless sockets, leathered skin drawn over a skull, jaw slightly open",
-    "hair": "a few lank strands of grave-hair",
-    "garb": "rotted burial wrappings and a rusted grave-robber's hook",
-    "mood": "patient, stalking",
-    "palette": "grave grey and bruise violet with a pale bone highlight",
-    "tags": ["enemy", "undead", "skirmisher", "crypt"],
+    "tags": [
+      "enemy",
+      "undead",
+      "skirmisher",
+      "crypt"
+    ],
     "packId": "starter-fantasy",
-    "shapeTilt": "jagged"
+    "faction": "chapel-undead",
+    "shapeTilt": "jagged",
+    "contract": {
+      "id": "char:crypt-stalker",
+      "atoms": [
+        {
+          "id": "painted_look",
+          "claim": "a painted character concept on a plain pale background",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "undead_flesh",
+          "claim": "dead, desiccated or decayed flesh",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "palette",
+          "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "body",
+          "claim": "a gaunt, long-limbed undead humanoid crouched low",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "skull_face",
+          "claim": "sunken eyeless sockets and leathered skin drawn over a skull",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "wrappings",
+          "claim": "rotted burial wrappings hanging from the limbs",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "hook",
+          "claim": "a rusted grave-robber's hook held in one hand",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "hair",
+          "claim": "a few lank strands of grave-hair",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "no_living_skin",
+          "claim": "healthy living human skin tone",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_modern",
+          "claim": "a firearm or any modern technology",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_armor",
+          "claim": "plate or mail armor",
+          "expected": "no",
+          "required": true
+        },
+        {
+          "id": "no_bulk",
+          "claim": "a hulking, broad-shouldered build",
+          "expected": "no",
+          "required": true
+        }
+      ],
+      "pcraftPrompt": "a painted character concept on a plain pale background, dead, desiccated or decayed flesh, a palette of grave grey, bone white and bruise violet with a cold accent, a gaunt, long-limbed undead humanoid crouched low, sunken eyeless sockets and leathered skin drawn over a skull, rotted burial wrappings hanging from the limbs, a rusted grave-robber's hook held in one hand, a few lank strands of grave-hair, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+    }
   },
   {
     "id": "ash-ghoul",
     "name": "Ash Ghoul",
     "kind": "monster",
-    "species": "undead ghoul",
-    "bodyClass": "hulking, broad-shouldered, hunched",
-    "age": "long dead",
-    "face": "ash-caked snarling face, cracked black lips, ember-dim eyes",
-    "hair": "hairless, scalp cracked like cooled lava",
-    "garb": "charred remnants of a sexton's tunic, bare clawed hands",
-    "mood": "ravenous, guarding",
-    "palette": "charcoal and ash white with a dying-ember orange accent",
-    "tags": ["enemy", "undead", "brute", "crypt"],
+    "tags": [
+      "enemy",
+      "undead",
+      "brute",
+      "crypt"
+    ],
     "packId": "starter-fantasy",
-    "shapeTilt": "broken"
+    "faction": "chapel-undead",
+    "shapeTilt": "broken",
+    "contract": {
+      "id": "char:ash-ghoul",
+      "atoms": [
+        {
+          "id": "painted_look",
+          "claim": "a painted character concept on a plain pale background",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "undead_flesh",
+          "claim": "dead, desiccated or decayed flesh",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "palette",
+          "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "body",
+          "claim": "a hulking, broad-shouldered, hunched undead ghoul",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "ash_face",
+          "claim": "an ash-caked snarling face with cracked black lips and ember-dim eyes",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "hairless",
+          "claim": "a hairless scalp cracked like cooled lava",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "tunic",
+          "claim": "the charred, burnt remnants of a plain sexton's work tunic",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "claws",
+          "claim": "bare clawed hands",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "ember_accent",
+          "claim": "a dying-ember orange glow in the cracks of the skin",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "no_living_skin",
+          "claim": "healthy living human skin tone",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_modern",
+          "claim": "a firearm or any modern technology",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_cassock",
+          "claim": "a priest's cassock, stole or a cross",
+          "expected": "no",
+          "required": true
+        },
+        {
+          "id": "no_weapon",
+          "claim": "a weapon in hand",
+          "expected": "no",
+          "required": true
+        }
+      ],
+      "pcraftPrompt": "a painted character concept on a plain pale background, dead, desiccated or decayed flesh, a palette of grave grey, bone white and bruise violet with a cold accent, a hulking, broad-shouldered, hunched undead ghoul, an ash-caked snarling face with cracked black lips and ember-dim eyes, a hairless scalp cracked like cooled lava, the charred, burnt remnants of a plain sexton's work tunic, bare clawed hands, a dying-ember orange glow in the cracks of the skin, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+    }
   },
   {
     "id": "crypt-warden",
     "name": "Crypt Warden",
     "kind": "monster",
-    "species": "undead knight",
-    "bodyClass": "towering, armored, rigid",
-    "age": "ancient",
-    "face": "desiccated noble face beneath a raised visor, empty burning eye sockets",
-    "hair": "none, a corroded steel great-helm",
-    "garb": "black-iron plate armor over a moth-eaten tabard, a grave-cold greatsword",
-    "mood": "implacable, sovereign",
-    "palette": "black iron and tarnished silver with a cold green witch-light accent",
-    "tags": ["enemy", "undead", "boss", "crypt"],
+    "tags": [
+      "enemy",
+      "undead",
+      "boss",
+      "crypt"
+    ],
     "packId": "starter-fantasy",
-    "shapeTilt": "asymmetric"
+    "faction": "chapel-undead",
+    "major": true,
+    "shapeTilt": "asymmetric",
+    "contract": {
+      "id": "char:crypt-warden",
+      "atoms": [
+        {
+          "id": "painted_look",
+          "claim": "a painted character concept on a plain pale background",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "undead_flesh",
+          "claim": "dead, desiccated or decayed flesh",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "palette",
+          "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "body",
+          "claim": "a towering, rigid undead knight in full armor",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "helm",
+          "claim": "a corroded steel great-helm with the visor raised",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "face",
+          "claim": "a desiccated noble face with empty, burning eye sockets beneath the visor",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "armor",
+          "claim": "black-iron plate armor over a moth-eaten tabard",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "sword",
+          "claim": "a grave-cold greatsword held upright",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "witchlight",
+          "claim": "a cold green witch-light glow along the blade and the eyes",
+          "expected": "yes",
+          "required": true
+        },
+        {
+          "id": "no_living_skin",
+          "claim": "healthy living human skin tone",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_modern",
+          "claim": "a firearm or any modern technology",
+          "expected": "no",
+          "required": false
+        },
+        {
+          "id": "no_living_face",
+          "claim": "a healthy living human face",
+          "expected": "no",
+          "required": true
+        },
+        {
+          "id": "no_horse",
+          "claim": "a horse or mount",
+          "expected": "no",
+          "required": false
+        }
+      ],
+      "pcraftPrompt": "a painted character concept on a plain pale background, dead, desiccated or decayed flesh, a palette of grave grey, bone white and bruise violet with a cold accent, a towering, rigid undead knight in full armor, a corroded steel great-helm with the visor raised, black-iron plate armor over a moth-eaten tabard, a grave-cold greatsword held upright, a desiccated noble face with empty, burning eye sockets beneath the visor, a cold green witch-light glow along the blade and the eyes, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+    }
   }
 ]

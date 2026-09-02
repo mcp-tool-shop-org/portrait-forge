@@ -37,6 +37,34 @@ export interface EntityDescription {
   // BUILD_SPEC.md Builder B, src/prompt/slots.ts: shot = bust for minor,
   // three-quarter for major (`desc.kind === 'monster' || major`).
   major?: boolean;
+  /**
+   * Director ruling 2026-09-02: descriptions come from prompt-craft
+   * contracts (typed, depictable, individually checkable atoms), never
+   * hand-written prose. When present, the contract's atoms ARE the content:
+   * every expected-yes atom joins the positive prompt in contract order,
+   * every expected-no atom joins the negative prompt, and the gate asks one
+   * question per atom (src/gate/questions.ts). The slot fields above are
+   * then ignored; the style token and the shot stay this tool's.
+   */
+  contract?: ContractSpec;
+}
+
+/** One prompt-craft atom as this tool consumes it (must_have -> 'yes', must_not -> 'no'). */
+export interface ContractAtom {
+  id: string;
+  claim: string;
+  expected: 'yes' | 'no';
+  /** prompt-craft severity 'required' -> true; 'optional' -> false. */
+  required: boolean;
+}
+
+export interface ContractSpec {
+  /** The prompt-craft contract id, e.g. `char:pilgrim`. */
+  id: string;
+  /** Resolved atoms, faction-inherited ones first (prompt-craft's own resolution order). */
+  atoms: ContractAtom[];
+  /** Optional provenance: the prompt `pcraft synth` produced for the same contract. */
+  pcraftPrompt?: string;
 }
 
 export interface SlotValues {
@@ -96,6 +124,7 @@ function isMajor(desc: EntityDescription): boolean {
  * other slot's text is untouched.
  */
 export function buildPrompt(desc: EntityDescription): BuiltPrompt {
+  if (desc.contract) return buildContractPrompt(desc);
   const speciesBodyClass = [desc.species, desc.bodyClass]
     .filter((v): v is string => Boolean(v && v.trim()))
     .join(' ');
@@ -137,6 +166,35 @@ export function buildPrompt(desc: EntityDescription): BuiltPrompt {
   return { positive, negative: FROZEN_NEGATIVE, slots };
 }
 
+/**
+ * Contract path (Director ruling 2026-09-02): `[style token] [every
+ * expected-yes atom claim, contract order] [shot]`; the negative prompt is
+ * every expected-no atom claim plus the frozen technical negatives. The
+ * SlotValues record carries the joined claims under `speciesBodyClass` and
+ * the shot under `shot` so manifests and tests keep one shape; the other
+ * slots are empty by construction.
+ */
+function buildContractPrompt(desc: EntityDescription): BuiltPrompt {
+  const atoms = desc.contract?.atoms ?? [];
+  const yes = atoms.filter((a) => a.expected === 'yes').map((a) => a.claim.trim()).filter(isNonEmpty);
+  const no = atoms.filter((a) => a.expected === 'no').map((a) => a.claim.trim()).filter(isNonEmpty);
+  const shot = isMajor(desc) ? THREE_QUARTER_SHOT : BUST_SHOT;
+  const slots: SlotValues = {
+    styleToken: STYLE_TOKEN,
+    speciesBodyClass: yes.join(', '),
+    age: '',
+    face: '',
+    hairHead: '',
+    garb: '',
+    mood: '',
+    paletteAccent: '',
+    shot,
+  };
+  const positive = [STYLE_TOKEN, ...yes, shot].join(', ');
+  const negative = [...no, FROZEN_NEGATIVE].join(', ');
+  return { positive, negative, slots };
+}
+
 function sortKeysDeep(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map(sortKeysDeep);
@@ -160,7 +218,13 @@ function sortKeysDeep(value: unknown): unknown {
  * registry path, not the pixels.
  */
 export function descriptionHash(desc: EntityDescription): string {
-  const relevant = {
+  // Contract path: the atoms are the whole description; the slot fields are
+  // ignored by buildPrompt, so they must not move the hash either.
+  const relevant = desc.contract ? {
+    contract: { id: desc.contract.id, atoms: desc.contract.atoms },
+    kind: desc.kind,
+    major: isMajor(desc),
+  } : {
     kind: desc.kind,
     species: desc.species ?? null,
     bodyClass: desc.bodyClass ?? null,

@@ -16,7 +16,9 @@ export type QuestionKind =
   | 'garment'
   | 'prop'
   | 'mood'
-  | 'distractor';
+  | 'distractor'
+  /** A prompt-craft contract atom (Director ruling 2026-09-02): one question per atom. */
+  | 'contract';
 
 export interface Question {
   id: string;
@@ -146,6 +148,7 @@ function signaturePropText(desc: EntityDescription): string {
  * mood) plus exactly two negative-polarity distractor checks (finding 26).
  */
 export function buildQuestions(desc: EntityDescription): Question[] {
+  if (desc.contract) return buildContractQuestions(desc);
   const speciesText = desc.species ?? desc.bodyClass ?? 'a humanoid figure';
   const ageText = desc.age ?? 'an adult stage of life';
   const hairText = desc.hair ?? 'a plain hairstyle';
@@ -245,4 +248,38 @@ export function buildQuestions(desc: EntityDescription): Question[] {
   }
 
   return questions;
+}
+
+/**
+ * Contract path (Director ruling 2026-09-02): one atomic, positively
+ * phrased question per prompt-craft atom -- must_have atoms expect "yes",
+ * must_not atoms expect "no" (design law §3, findings 25/26/30: atomic,
+ * balanced polarity, no negation in the text). `required` follows the
+ * atom's severity. The SigLIP lens's relative verdict needs contrast
+ * phrases: an expected-yes atom is contrasted against the contract's own
+ * expected-no claims (padded from the generic pools), and vice versa.
+ */
+function buildContractQuestions(desc: EntityDescription): Question[] {
+  const atoms = desc.contract?.atoms ?? [];
+  const yesClaims = atoms.filter((a) => a.expected === 'yes').map((a) => a.claim);
+  const noClaims = atoms.filter((a) => a.expected === 'no').map((a) => a.claim);
+  const pad = (list: string[], self: string): string[] => {
+    const out = list.filter((c) => c !== self).slice(0, 3);
+    for (const pool of [SPECIES_POOL, PROP_POOL]) {
+      for (const p of pool) {
+        if (out.length >= 3) break;
+        if (p !== self && !out.includes(p)) out.push(p);
+      }
+    }
+    return out;
+  };
+  return atoms.map((a) => ({
+    id: a.id,
+    text: `This portrait shows ${a.claim}.`,
+    targetPhrase: a.claim,
+    contrastAlternatives: pad(a.expected === 'yes' ? noClaims : yesClaims, a.claim),
+    expected: a.expected,
+    required: a.required,
+    kind: 'contract' as const,
+  }));
 }

@@ -105,3 +105,28 @@ describe('buildQuestions', () => {
     expect(propQuestion?.text).not.toMatch(NEGATION_RE);
   });
 });
+
+describe('contract path (Director ruling 2026-09-02)', () => {
+  it('asks one positively phrased question per atom, must_not atoms expecting no, required per severity', () => {
+    const desc: EntityDescription = {
+      id: 'pilgrim', name: 'Suspicious Pilgrim', kind: 'npc', tags: [], packId: 'starter-fantasy',
+      contract: {
+        id: 'char:pilgrim',
+        atoms: [
+          { id: 'sex_age', claim: 'a middle-aged man', expected: 'yes', required: true },
+          { id: 'staff', claim: 'a wooden staff', expected: 'yes', required: true },
+          { id: 'no_wimple', claim: "a nun's wimple", expected: 'no', required: true },
+          { id: 'no_weapon', claim: 'a sword', expected: 'no', required: false },
+        ],
+      },
+    };
+    const qs = buildQuestions(desc);
+    expect(qs.map((q) => q.id)).toEqual(['sex_age', 'staff', 'no_wimple', 'no_weapon']);
+    expect(qs.every((q) => q.kind === 'contract')).toBe(true);
+    expect(qs.every((q) => !/\b(not|never|no)\b/i.test(q.text.replace(/^This portrait shows /, '')) || q.expected === 'no')).toBe(true);
+    expect(qs.filter((q) => q.expected === 'no').length).toBe(2);
+    expect(qs.find((q) => q.id === 'no_weapon')?.required).toBe(false);
+    expect(qs[0].contrastAlternatives.length).toBeGreaterThanOrEqual(3);
+    expect(qs[0].contrastAlternatives).toContain("a nun's wimple");
+  });
+});
