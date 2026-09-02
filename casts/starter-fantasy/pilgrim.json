@@ -2,14 +2,6 @@
   "id": "pilgrim",
   "name": "Suspicious Pilgrim",
   "kind": "npc",
-  "species": "human woman",
-  "bodyClass": "slight, road-worn",
-  "age": "middle-aged",
-  "face": "narrow watchful face, sun-lined, guarded eyes",
-  "hair": "dark hair bound under a travel-stained wimple",
-  "garb": "grey pilgrim's cloak with a scallop-shell badge, staff in hand",
-  "mood": "wary, weighing you",
-  "palette": "ash grey with a single dull red badge",
   "tags": [
     "npc",
     "named",
@@ -17,5 +9,96 @@
     "story"
   ],
   "packId": "starter-fantasy",
-  "shapeTilt": "angular"
+  "faction": "chapel-folk",
+  "shapeTilt": "angular",
+  "contract": {
+    "id": "char:pilgrim",
+    "atoms": [
+      {
+        "id": "painted_look",
+        "claim": "a painted character concept on a plain pale background",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "worn_cloth",
+        "claim": "worn, travel-stained medieval cloth garments",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "palette",
+        "claim": "a muted palette of ash grey, brown and bone white",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "sex_age",
+        "claim": "a middle-aged man with a lean, sun-lined face and several days of stubble",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "hood",
+        "claim": "a grey travel hood pushed half back over dark, unkempt hair",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "cloak",
+        "claim": "a grey pilgrim's cloak with a scallop-shell badge sewn on the breast",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "staff",
+        "claim": "a rough wooden walking staff held in one hand",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "gaze",
+        "claim": "a wary, sidelong, weighing gaze",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "red_badge",
+        "claim": "one small dull-red cloth patch on the cloak",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "no_modern",
+        "claim": "a firearm or any modern technology",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_armor_plate",
+        "claim": "polished plate armor",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_wimple",
+        "claim": "a nun's wimple, veil or habit",
+        "expected": "no",
+        "required": true
+      },
+      {
+        "id": "no_woman",
+        "claim": "a woman",
+        "expected": "no",
+        "required": true
+      },
+      {
+        "id": "no_weapon",
+        "claim": "a sword or an axe",
+        "expected": "no",
+        "required": false
+      }
+    ],
+    "pcraftPrompt": "a painted character concept on a plain pale background, worn, travel-stained medieval cloth garments, a muted palette of ash grey, brown and bone white, a middle-aged man with a lean, sun-lined face and several days of stubble, a grey travel hood pushed half back over dark, unkempt hair, a grey pilgrim's cloak with a scallop-shell badge sewn on the breast, a rough wooden walking staff held in one hand, a wary, sidelong, weighing gaze, one small dull-red cloth patch on the cloak, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+  }
 }

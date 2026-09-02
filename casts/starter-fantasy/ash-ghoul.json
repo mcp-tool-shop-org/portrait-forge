@@ -2,14 +2,6 @@
   "id": "ash-ghoul",
   "name": "Ash Ghoul",
   "kind": "monster",
-  "species": "undead ghoul",
-  "bodyClass": "hulking, broad-shouldered, hunched",
-  "age": "long dead",
-  "face": "ash-caked snarling face, cracked black lips, ember-dim eyes",
-  "hair": "hairless, scalp cracked like cooled lava",
-  "garb": "charred remnants of a sexton's tunic, bare clawed hands",
-  "mood": "ravenous, guarding",
-  "palette": "charcoal and ash white with a dying-ember orange accent",
   "tags": [
     "enemy",
     "undead",
@@ -17,5 +9,90 @@
     "crypt"
   ],
   "packId": "starter-fantasy",
-  "shapeTilt": "broken"
+  "faction": "chapel-undead",
+  "shapeTilt": "broken",
+  "contract": {
+    "id": "char:ash-ghoul",
+    "atoms": [
+      {
+        "id": "painted_look",
+        "claim": "a painted character concept on a plain pale background",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "undead_flesh",
+        "claim": "dead, desiccated or decayed flesh",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "palette",
+        "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "body",
+        "claim": "a hulking, broad-shouldered, hunched undead ghoul",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "ash_face",
+        "claim": "an ash-caked snarling face with cracked black lips and ember-dim eyes",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "hairless",
+        "claim": "a hairless scalp cracked like cooled lava",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "tunic",
+        "claim": "the charred, burnt remnants of a plain sexton's work tunic",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "claws",
+        "claim": "bare clawed hands",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "ember_accent",
+        "claim": "a dying-ember orange glow in the cracks of the skin",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "no_living_skin",
+        "claim": "healthy living human skin tone",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_modern",
+        "claim": "a firearm or any modern technology",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_cassock",
+        "claim": "a priest's cassock, stole or a cross",
+        "expected": "no",
+        "required": true
+      },
+      {
+        "id": "no_weapon",
+        "claim": "a weapon in hand",
+        "expected": "no",
+        "required": true
+      }
+    ],
+    "pcraftPrompt": "a painted character concept on a plain pale background, dead, desiccated or decayed flesh, a palette of grave grey, bone white and bruise violet with a cold accent, a hulking, broad-shouldered, hunched undead ghoul, an ash-caked snarling face with cracked black lips and ember-dim eyes, a hairless scalp cracked like cooled lava, the charred, burnt remnants of a plain sexton's work tunic, bare clawed hands, a dying-ember orange glow in the cracks of the skin, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+  }
 }

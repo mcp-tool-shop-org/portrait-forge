@@ -2,14 +2,6 @@
   "id": "sister-maren",
   "name": "Sister Maren",
   "kind": "npc",
-  "species": "human woman",
-  "bodyClass": "upright, composed",
-  "age": "young adult",
-  "face": "keen oval face, arched brows, steady scholar's gaze",
-  "hair": "auburn hair pinned back under a plain white veil",
-  "garb": "black-and-white novice's habit, ink-stained fingers, a satchel of papers",
-  "mood": "measured, diplomatic",
-  "palette": "black and white with a deep blue ink accent",
   "tags": [
     "npc",
     "recruitable",
@@ -18,5 +10,84 @@
     "chapel"
   ],
   "packId": "starter-fantasy",
-  "shapeTilt": "balanced"
+  "faction": "chapel-folk",
+  "shapeTilt": "balanced",
+  "contract": {
+    "id": "char:sister-maren",
+    "atoms": [
+      {
+        "id": "painted_look",
+        "claim": "a painted character concept on a plain pale background",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "worn_cloth",
+        "claim": "worn, travel-stained medieval cloth garments",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "palette",
+        "claim": "a muted palette of ash grey, brown and bone white",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "sex_age",
+        "claim": "a young woman with a keen oval face, arched brows and a steady scholar's gaze",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "veil",
+        "claim": "a plain white novice's veil over pinned-back auburn hair",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "habit",
+        "claim": "a black-and-white novice's habit",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "ink",
+        "claim": "ink-stained fingertips",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "satchel",
+        "claim": "a leather satchel of papers at the hip",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "no_modern",
+        "claim": "a firearm or any modern technology",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_armor_plate",
+        "claim": "polished plate armor",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_man",
+        "claim": "a man",
+        "expected": "no",
+        "required": true
+      },
+      {
+        "id": "no_weapon",
+        "claim": "a weapon in hand",
+        "expected": "no",
+        "required": false
+      }
+    ],
+    "pcraftPrompt": "a painted character concept on a plain pale background, worn, travel-stained medieval cloth garments, a muted palette of ash grey, brown and bone white, a young woman with a keen oval face, arched brows and a steady scholar's gaze, a plain white novice's veil over pinned-back auburn hair, a black-and-white novice's habit, ink-stained fingertips, a leather satchel of papers at the hip, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+  }
 }

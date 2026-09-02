@@ -2,14 +2,6 @@
   "id": "brother-aldric",
   "name": "Brother Aldric",
   "kind": "npc",
-  "species": "human man",
-  "bodyClass": "stooped, thin",
-  "age": "old",
-  "face": "long gentle face, hollow cheeks, tired kind eyes",
-  "hair": "tonsured white hair, close grey beard",
-  "garb": "brown wool monk's habit, rope belt, wooden holy pendant",
-  "mood": "burdened but warm",
-  "palette": "brown and bone white with a candle-gold accent",
   "tags": [
     "npc",
     "named",
@@ -17,5 +9,84 @@
     "chapel"
   ],
   "packId": "starter-fantasy",
-  "shapeTilt": "rounded"
+  "faction": "chapel-folk",
+  "shapeTilt": "rounded",
+  "contract": {
+    "id": "char:brother-aldric",
+    "atoms": [
+      {
+        "id": "painted_look",
+        "claim": "a painted character concept on a plain pale background",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "worn_cloth",
+        "claim": "worn, travel-stained medieval cloth garments",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "palette",
+        "claim": "a muted palette of ash grey, brown and bone white",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "sex_age",
+        "claim": "an old man with a long gentle face, hollow cheeks and tired kind eyes",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "tonsure",
+        "claim": "a monk's tonsure with white hair and a close grey beard",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "habit",
+        "claim": "a brown wool monk's habit with a rope belt",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "pendant",
+        "claim": "a small wooden holy pendant on a cord",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "candle",
+        "claim": "warm candle-gold light on one side of the face",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "no_modern",
+        "claim": "a firearm or any modern technology",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_armor_plate",
+        "claim": "polished plate armor",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_helmet",
+        "claim": "a helmet or hood covering the head",
+        "expected": "no",
+        "required": true
+      },
+      {
+        "id": "no_woman",
+        "claim": "a woman",
+        "expected": "no",
+        "required": true
+      }
+    ],
+    "pcraftPrompt": "a painted character concept on a plain pale background, worn, travel-stained medieval cloth garments, a muted palette of ash grey, brown and bone white, an old man with a long gentle face, hollow cheeks and tired kind eyes, a monk's tonsure with white hair and a close grey beard, a brown wool monk's habit with a rope belt, warm candle-gold light on one side of the face, a small wooden holy pendant on a cord, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+  }
 }

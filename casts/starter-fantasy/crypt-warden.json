@@ -2,14 +2,6 @@
   "id": "crypt-warden",
   "name": "Crypt Warden",
   "kind": "monster",
-  "species": "undead knight",
-  "bodyClass": "towering, armored, rigid",
-  "age": "ancient",
-  "face": "desiccated noble face beneath a raised visor, empty burning eye sockets",
-  "hair": "none, a corroded steel great-helm",
-  "garb": "black-iron plate armor over a moth-eaten tabard, a grave-cold greatsword",
-  "mood": "implacable, sovereign",
-  "palette": "black iron and tarnished silver with a cold green witch-light accent",
   "tags": [
     "enemy",
     "undead",
@@ -17,5 +9,91 @@
     "crypt"
   ],
   "packId": "starter-fantasy",
-  "shapeTilt": "asymmetric"
+  "faction": "chapel-undead",
+  "major": true,
+  "shapeTilt": "asymmetric",
+  "contract": {
+    "id": "char:crypt-warden",
+    "atoms": [
+      {
+        "id": "painted_look",
+        "claim": "a painted character concept on a plain pale background",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "undead_flesh",
+        "claim": "dead, desiccated or decayed flesh",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "palette",
+        "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "body",
+        "claim": "a towering, rigid undead knight in full armor",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "helm",
+        "claim": "a corroded steel great-helm with the visor raised",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "face",
+        "claim": "a desiccated noble face with empty, burning eye sockets beneath the visor",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "armor",
+        "claim": "black-iron plate armor over a moth-eaten tabard",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "sword",
+        "claim": "a grave-cold greatsword held upright",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "witchlight",
+        "claim": "a cold green witch-light glow along the blade and the eyes",
+        "expected": "yes",
+        "required": true
+      },
+      {
+        "id": "no_living_skin",
+        "claim": "healthy living human skin tone",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_modern",
+        "claim": "a firearm or any modern technology",
+        "expected": "no",
+        "required": false
+      },
+      {
+        "id": "no_living_face",
+        "claim": "a healthy living human face",
+        "expected": "no",
+        "required": true
+      },
+      {
+        "id": "no_horse",
+        "claim": "a horse or mount",
+        "expected": "no",
+        "required": false
+      }
+    ],
+    "pcraftPrompt": "a painted character concept on a plain pale background, dead, desiccated or decayed flesh, a palette of grave grey, bone white and bruise violet with a cold accent, a towering, rigid undead knight in full armor, a corroded steel great-helm with the visor raised, black-iron plate armor over a moth-eaten tabard, a grave-cold greatsword held upright, a desiccated noble face with empty, burning eye sockets beneath the visor, a cold green witch-light glow along the blade and the eyes, full body visible, front-facing view, isolated on plain white background, character concept art, clean sharp lines"
+  }
 }
