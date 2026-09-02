@@ -108,6 +108,21 @@ hooded, ...) are edited from the canonical image, never from a previous
 variant, and must pass a sameness check on both lenses plus their own
 question before they're written.
 
+### Cost of a gate run (measured 2026-09-02)
+
+The first implementation asked every question of every candidate through
+every lens one call at a time: 14 atoms × 3 candidates × 2 lenses = 84
+sequential calls per entity, and the vision model re-encoded the image on
+each one — with a thinking model that also spent ~1,000 tokens reasoning
+before each yes/no. The Director's finding: bad design. Now a lens that can
+answer every question of one image in a single call implements
+`Lens.askMany`, and `judge()` prefers it: the vision lens makes **one call per
+candidate** (3 per entity), thinking off, answer length capped; SigLIP2 stays
+per-question because it is local and cheap. The questions are unchanged and
+still atomic (design law §3); only the transport is batched. Palette atoms
+are asked as advisory questions here — prompt-craft's deterministic pixel
+check is the palette authority.
+
 ## The registry
 
 ```
