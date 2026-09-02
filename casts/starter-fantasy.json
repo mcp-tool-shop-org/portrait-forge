@@ -31,7 +31,7 @@
           "id": "palette",
           "claim": "a muted palette of ash grey, brown and bone white",
           "expected": "yes",
-          "required": true
+          "required": false
         },
         {
           "id": "sex_age",
@@ -135,7 +135,7 @@
           "id": "palette",
           "claim": "a muted palette of ash grey, brown and bone white",
           "expected": "yes",
-          "required": true
+          "required": false
         },
         {
           "id": "sex_age",
@@ -228,7 +228,7 @@
           "id": "palette",
           "claim": "a muted palette of ash grey, brown and bone white",
           "expected": "yes",
-          "required": true
+          "required": false
         },
         {
           "id": "sex_age",
@@ -320,7 +320,7 @@
           "id": "palette",
           "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
           "expected": "yes",
-          "required": true
+          "required": false
         },
         {
           "id": "body",
@@ -412,7 +412,7 @@
           "id": "palette",
           "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
           "expected": "yes",
-          "required": true
+          "required": false
         },
         {
           "id": "body",
@@ -517,7 +517,7 @@
           "id": "palette",
           "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
           "expected": "yes",
-          "required": true
+          "required": false
         },
         {
           "id": "body",

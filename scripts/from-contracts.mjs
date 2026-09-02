@@ -36,11 +36,19 @@ function atomsOf(contract, byId) {
   const chain = [];
   for (let c = contract; c; c = c.extends ? byId.get(c.extends) : undefined) chain.unshift(c);
   const atoms = [];
+  // A `palette` atom is verified by prompt-craft's own deterministic pixel
+  // check, not by a vision question -- a VLM asked "does this show a palette
+  // of grave grey and bruise violet" answers by impression (measured
+  // 2026-09-02: the ash ghoul failed its faction palette on the vision lens
+  // alone, 13/14 atoms passing). Here it shapes the prompt and is asked as
+  // an advisory (not required) question; `pcraft gate` remains the palette
+  // authority.
+  const required = (a) => a.severity === 'required' && a.check_type !== 'palette';
   for (const c of chain) {
-    for (const a of c.must_have ?? []) atoms.push({ id: a.id, claim: a.claim, expected: 'yes', required: a.severity === 'required' });
+    for (const a of c.must_have ?? []) atoms.push({ id: a.id, claim: a.claim, expected: 'yes', required: required(a) });
   }
   for (const c of chain) {
-    for (const a of c.must_not ?? []) atoms.push({ id: a.id, claim: a.claim, expected: 'no', required: a.severity === 'required' });
+    for (const a of c.must_not ?? []) atoms.push({ id: a.id, claim: a.claim, expected: 'no', required: required(a) });
   }
   return atoms;
 }

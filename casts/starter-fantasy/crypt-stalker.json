@@ -30,7 +30,7 @@
         "id": "palette",
         "claim": "a palette of grave grey, bone white and bruise violet with a cold accent",
         "expected": "yes",
-        "required": true
+        "required": false
       },
       {
         "id": "body",

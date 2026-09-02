@@ -30,7 +30,7 @@
         "id": "palette",
         "claim": "a muted palette of ash grey, brown and bone white",
         "expected": "yes",
-        "required": true
+        "required": false
       },
       {
         "id": "sex_age",
