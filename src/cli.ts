@@ -326,7 +326,13 @@ export async function composeRealDeps(): Promise<ComposedDeps> {
       pin: {
         sha256,
         pinnedConstants: () => pinned,
-        fillSlots: (slots) => fillSlots(template, slots),
+        // ensure.ts passes every slot as a string; KSampler.seed is an INT
+        // input, so an all-digit seed goes back to a bare number here.
+        fillSlots: (slots) =>
+          fillSlots(
+            template,
+            Object.fromEntries(Object.entries(slots).map(([k, v]) => [k, k === 'seed' && /^\d+$/.test(v) ? Number(v) : v])),
+          ),
       },
       registryOps: {
         paths: (rootDir, packId, entityId) => {
