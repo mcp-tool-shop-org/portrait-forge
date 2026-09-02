@@ -43,13 +43,26 @@ gate, not the seed, is what guarantees a portrait is right (design law §1).
 | Backend | What it does | Env |
 |---|---|---|
 | `local` | Submits the graph to a local ComfyUI (`http://127.0.0.1:8188` by default) and polls for the output. | — |
-| `cloud` | Submits the same graph to Comfy Cloud, uploading the LoRA once. | `COMFY_CLOUD_API_KEY` |
-| `file` | Drops the filled graph as `<outDir>/<prefix>.graph.json` and waits for `<outDir>/<prefix>.png` to appear, so an operator can run the graph through the Comfy Cloud MCP plugin by hand and drop the output back. | `--out <dir>`, `--wait-ms <n>` |
+| `cloud` | Submits the same graph to Comfy Cloud's HTTP API with an API key. | `COMFY_CLOUD_API_KEY` |
+| `file` | Drops the filled graph as `<outDir>/<prefix>.graph.json` and waits for `<outDir>/<prefix>.png` to appear, so an operator (or an agent holding the Comfy Cloud MCP plugin) submits the graph and drops the output back. | `--out <dir>`, `--wait-ms <n>` |
 
-`local`, `cloud`, and the workflow files themselves are Builder A's
-(`src/backends/**`, `src/workflow/**`, `workflows/**`); this package's `cli.ts`
-wires them in at a composition root once they exist (see **Development**
-below — this is the "green expected at merge" part of the build).
+**The studio's cloud path is the hosted Comfy Cloud MCP plugin** (OAuth; no
+API key is created or pasted anywhere). That is the `file` backend's round
+trip, or — for a whole cast at once — `scripts/emit-graphs.mjs`, which writes
+the N candidate graphs per entity without running any backend:
+
+```
+node scripts/emit-graphs.mjs --cast casts/starter-fantasy.json --out _cloud/starter-fantasy   --lora-name SaintEloi__sfhd-style-v1-lora__sfhd_style_v1_1250.safetensors
+```
+
+`--lora-name` rewrites the LoRA loader's filename for a server that stores the
+same LoRA under a different name (Comfy Cloud's imported-model naming); the
+manifest still records the pinned local name and the file's SHA-256. The
+agent submits the graphs (`submit_batch`), downloads each PNG into
+`<out>/<entityId>/`, and runs `portrait-forge accept --entity <json>
+--candidates <out>/<entityId>` to gate them into the registry. Verified live
+2026-09-02: the starter-fantasy cast's 18 candidates rendered on Comfy Cloud
+from these graphs with the fp8 Qwen-Image-2512 base.
 
 ## The gate
 
