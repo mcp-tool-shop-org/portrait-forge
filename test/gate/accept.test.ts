@@ -185,3 +185,26 @@ describe('styleGate', () => {
     await expect(styleGate('/candidate.png', [], siglip)).rejects.toThrow(/at least one reference plate/);
   });
 });
+
+describe('batched lens transport (Director finding 2026-09-02: 84 sequential calls per entity)', () => {
+  it('judge makes one askMany call per lens per candidate and never calls ask() for ids the batch answered', async () => {
+    const qs: Question[] = [
+      { id: 'a', text: 'This portrait shows a man.', targetPhrase: 'a man', contrastAlternatives: ['a woman'], expected: 'yes', required: true, kind: 'contract' },
+      { id: 'b', text: 'This portrait shows a hat.', targetPhrase: 'a hat', contrastAlternatives: ['a helmet'], expected: 'no', required: true, kind: 'contract' },
+    ];
+    const askCalls: string[] = [];
+    const manyCalls: string[] = [];
+    const mk = (family: 'siglip' | 'ollama', withMany: boolean): Lens => ({
+      name: family,
+      family,
+      async ask(_img, q) { askCalls.push(`${family}:${q.id}`); return { answer: q.expected }; },
+      async same() { return { same: true }; },
+      ...(withMany ? { async askMany(_img: string, questions: Question[]) { manyCalls.push(family); return Object.fromEntries(questions.map((q) => [q.id, { answer: q.expected }])); } } : {}),
+    });
+    const verdicts = await judge([{ id: 'c0', imagePath: '/x/c0.png' }, { id: 'c1', imagePath: '/x/c1.png' }], qs, [mk('siglip', false), mk('ollama', true)]);
+    expect(manyCalls).toEqual(['ollama', 'ollama']);
+    expect(askCalls.filter((c) => c.startsWith('ollama'))).toEqual([]);
+    expect(askCalls.filter((c) => c.startsWith('siglip')).length).toBe(4);
+    expect(verdicts.every((v) => v.allRequiredPassed)).toBe(true);
+  });
+});

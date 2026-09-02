@@ -49,10 +49,16 @@ export async function judge(candidates: Candidate[], questions: Question[], lens
   const verdicts: Verdict[] = [];
   for (const candidate of candidates) {
     const questionResults: QuestionVerdict[] = [];
+    // One batched call per lens per candidate where the lens supports it
+    // (Lens.askMany); per-question `ask()` fills any id the batch omitted.
+    const batched = await Promise.all(
+      lenses.map(async (lens) => (lens.askMany ? await lens.askMany(candidate.imagePath, questions) : {})),
+    );
     for (const question of questions) {
       const perLens = await Promise.all(
-        lenses.map(async (lens) => {
-          const { answer } = await lens.ask(candidate.imagePath, question);
+        lenses.map(async (lens, li) => {
+          const pre = batched[li]?.[question.id];
+          const { answer } = pre ?? (await lens.ask(candidate.imagePath, question));
           return { family: lens.family, answer };
         }),
       );

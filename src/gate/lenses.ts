@@ -24,6 +24,15 @@ export interface Lens {
   family: 'siglip' | 'ollama';
   ask(imagePath: string, question: Question): Promise<LensAnswer>;
   same(imageA: string, imageB: string): Promise<LensSameness>;
+  /**
+   * Director finding 2026-09-02 ("why is the gate taking this long"): the
+   * per-question loop made 14 x 3 x 2 = 84 sequential calls per entity and
+   * a vision model re-encoded the image on every one. A lens that can
+   * answer every question of one image in ONE call implements this; judge()
+   * prefers it. The questions stay atomic (design law §3) -- only the
+   * transport is batched. Missing ids fall back to `ask()`.
+   */
+  askMany?(imagePath: string, questions: Question[]): Promise<Record<string, LensAnswer>>;
 }
 
 /** The Ollama lens additionally answers the pairwise tie-break (design law
@@ -235,7 +244,7 @@ export function createOllamaLens(options: OllamaLensOptions = {}): PairwiseLens 
     return buf.toString('base64');
   }
 
-  async function chatJson(prompt: string, images: string[]): Promise<Record<string, unknown>> {
+  async function chatJson(prompt: string, images: string[], numPredict = 64): Promise<Record<string, unknown>> {
     const res = await fetchFn(`${host}/api/chat`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -248,7 +257,7 @@ export function createOllamaLens(options: OllamaLensOptions = {}): PairwiseLens 
         // yes/no JSON (~20 s a question). A lens answer is one word; thinking
         // is off and the answer capped.
         think: false,
-        options: { temperature: 0, num_predict: 64 },
+        options: { temperature: 0, num_predict: numPredict },
         stream: false,
       }),
     });
@@ -273,6 +282,25 @@ export function createOllamaLens(options: OllamaLensOptions = {}): PairwiseLens 
         .trim()
         .toLowerCase();
       return { answer: answer === 'yes' ? 'yes' : 'no' };
+    },
+    async askMany(imagePath, questions) {
+      if (questions.length === 0) return {};
+      const b64 = await toBase64(imagePath);
+      const list = questions.map((q, i) => `${i + 1}. [${q.id}] ${q.text}`).join('\n');
+      const prompt =
+        'Look only at what is visually depicted. Answer EVERY question below with yes or no, ' +
+        'strictly as JSON of the form {"answers": {"<id>": "yes" | "no", ...}} using the ids in brackets.\n' +
+        list;
+      const parsed = await chatJson(prompt, [b64], 16 * questions.length + 32);
+      const raw = (parsed.answers ?? parsed) as Record<string, unknown>;
+      const out: Record<string, LensAnswer> = {};
+      for (const q of questions) {
+        const v = raw[q.id];
+        if (v === undefined) continue; // judge() falls back to ask() for this id
+        const answer = String(v).trim().toLowerCase();
+        out[q.id] = { answer: answer === 'yes' || answer === 'true' ? 'yes' : 'no' };
+      }
+      return out;
     },
     async same(imageA, imageB) {
       const [a, b] = await Promise.all([toBase64(imageA), toBase64(imageB)]);

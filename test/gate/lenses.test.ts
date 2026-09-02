@@ -180,3 +180,23 @@ describe('createOllamaLens', () => {
     await expect(lens.ask('/a.png', makeQuestion())).rejects.toThrow(/500/);
   });
 });
+
+describe('ollama lens askMany', () => {
+  it('sends every question in one request, sizes num_predict to the batch, and maps the answers by id', async () => {
+    const seen: Array<Record<string, unknown>> = [];
+    const fetchFn = (async (_url: string, init: RequestInit) => {
+      seen.push(JSON.parse(String(init.body)));
+      return { ok: true, json: async () => ({ message: { content: JSON.stringify({ answers: { a: 'yes', b: 'no' } }) } }) } as unknown as Response;
+    }) as unknown as typeof fetch;
+    const lens = createOllamaLens({ fetchFn, readImage: async () => Buffer.from('png') });
+    const qs = [
+      { id: 'a', text: 'This portrait shows a man.', targetPhrase: 'a man', contrastAlternatives: [], expected: 'yes' as const, required: true, kind: 'contract' as const },
+      { id: 'b', text: 'This portrait shows a hat.', targetPhrase: 'a hat', contrastAlternatives: [], expected: 'no' as const, required: true, kind: 'contract' as const },
+    ];
+    const out = await lens.askMany!('/x.png', qs);
+    expect(seen.length).toBe(1);
+    expect(String(seen[0].messages && (seen[0].messages as Array<{ content: string }>)[0].content)).toContain('[a]');
+    expect((seen[0].options as { num_predict: number }).num_predict).toBe(16 * 2 + 32);
+    expect(out).toEqual({ a: { answer: 'yes' }, b: { answer: 'no' } });
+  });
+});
