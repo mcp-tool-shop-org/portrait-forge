@@ -244,7 +244,11 @@ export function createOllamaLens(options: OllamaLensOptions = {}): PairwiseLens 
         messages: [{ role: 'user', content: prompt, images }],
         format: 'json',
         keep_alive: keepAlive,
-        options: { temperature: 0 },
+        // Measured 2026-09-02: qwen3.6 "thinks" for 1,000+ tokens before a
+        // yes/no JSON (~20 s a question). A lens answer is one word; thinking
+        // is off and the answer capped.
+        think: false,
+        options: { temperature: 0, num_predict: 64 },
         stream: false,
       }),
     });

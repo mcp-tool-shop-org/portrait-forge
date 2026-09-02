@@ -145,6 +145,8 @@ describe('createOllamaLens', () => {
     expect(body.format).toBe('json');
     expect(body.keep_alive).toBe('5m');
     expect(body.options.temperature).toBe(0);
+    expect(body.think).toBe(false);
+    expect(body.options.num_predict).toBe(64);
     expect(body.messages[0].images).toEqual([Buffer.from('fake-png-bytes').toString('base64')]);
   });
 
