@@ -1,0 +1,21 @@
+{
+  "id": "crypt-warden",
+  "name": "Crypt Warden",
+  "kind": "monster",
+  "species": "undead knight",
+  "bodyClass": "towering, armored, rigid",
+  "age": "ancient",
+  "face": "desiccated noble face beneath a raised visor, empty burning eye sockets",
+  "hair": "none, a corroded steel great-helm",
+  "garb": "black-iron plate armor over a moth-eaten tabard, a grave-cold greatsword",
+  "mood": "implacable, sovereign",
+  "palette": "black iron and tarnished silver with a cold green witch-light accent",
+  "tags": [
+    "enemy",
+    "undead",
+    "boss",
+    "crypt"
+  ],
+  "packId": "starter-fantasy",
+  "shapeTilt": "asymmetric"
+}

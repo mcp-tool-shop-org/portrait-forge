@@ -1,0 +1,21 @@
+{
+  "id": "crypt-stalker",
+  "name": "Crypt Stalker",
+  "kind": "monster",
+  "species": "undead humanoid",
+  "bodyClass": "gaunt, long-limbed, crouched",
+  "age": "long dead",
+  "face": "sunken eyeless sockets, leathered skin drawn over a skull, jaw slightly open",
+  "hair": "a few lank strands of grave-hair",
+  "garb": "rotted burial wrappings and a rusted grave-robber's hook",
+  "mood": "patient, stalking",
+  "palette": "grave grey and bruise violet with a pale bone highlight",
+  "tags": [
+    "enemy",
+    "undead",
+    "skirmisher",
+    "crypt"
+  ],
+  "packId": "starter-fantasy",
+  "shapeTilt": "jagged"
+}

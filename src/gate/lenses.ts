@@ -194,6 +194,14 @@ export interface OllamaLensOptions {
   fetchFn?: typeof fetch;
   /** Injectable for tests -- defaults to `node:fs/promises` readFile. */
   readImage?: (path: string) => Promise<Buffer>;
+  /**
+   * Ollama `keep_alive` for the vision model. BUILD_SPEC.md said `0` (the
+   * jury convention: one-shot callers free the GPU); measured 2026-09-02,
+   * a gate run makes ~30 calls and reloading a 20 GB model per call cost
+   * ~45 s each. Default `5m` (env `PORTRAIT_FORGE_OLLAMA_KEEP_ALIVE`
+   * overrides; `0` restores the one-shot behavior).
+   */
+  keepAlive?: string | number;
 }
 
 // Measured on this rig 2026-09-01: `gemma4:31b` (named in BUILD_SPEC.md as
@@ -208,7 +216,7 @@ async function defaultReadImage(path: string): Promise<Buffer> {
 }
 
 /**
- * `POST /api/chat` with `images: [base64]`, `format: 'json'`, `keep_alive: 0`,
+ * `POST /api/chat` with `images: [base64]`, `format: 'json'`, `keep_alive` (5m default),
  * temperature 0, asking a strict yes/no JSON for a question; a same/different
  * JSON for sameness; and a pairwise a/b JSON for the tie-break (module
  * contract, BUILD_SPEC.md Builder B).
@@ -218,6 +226,9 @@ export function createOllamaLens(options: OllamaLensOptions = {}): PairwiseLens 
   const model = options.model ?? process.env.OLLAMA_VISION_MODEL ?? DEFAULT_OLLAMA_MODEL;
   const fetchFn = options.fetchFn ?? fetch;
   const readImage = options.readImage ?? defaultReadImage;
+  const envKeepAlive = process.env.PORTRAIT_FORGE_OLLAMA_KEEP_ALIVE;
+  const keepAlive: string | number =
+    options.keepAlive ?? (envKeepAlive === undefined ? '5m' : /^\d+$/.test(envKeepAlive) ? Number(envKeepAlive) : envKeepAlive);
 
   async function toBase64(imagePath: string): Promise<string> {
     const buf = await readImage(imagePath);
@@ -232,7 +243,7 @@ export function createOllamaLens(options: OllamaLensOptions = {}): PairwiseLens 
         model,
         messages: [{ role: 'user', content: prompt, images }],
         format: 'json',
-        keep_alive: 0,
+        keep_alive: keepAlive,
         options: { temperature: 0 },
         stream: false,
       }),

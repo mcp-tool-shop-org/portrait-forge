@@ -1,0 +1,21 @@
+{
+  "id": "brother-aldric",
+  "name": "Brother Aldric",
+  "kind": "npc",
+  "species": "human man",
+  "bodyClass": "stooped, thin",
+  "age": "old",
+  "face": "long gentle face, hollow cheeks, tired kind eyes",
+  "hair": "tonsured white hair, close grey beard",
+  "garb": "brown wool monk's habit, rope belt, wooden holy pendant",
+  "mood": "burdened but warm",
+  "palette": "brown and bone white with a candle-gold accent",
+  "tags": [
+    "npc",
+    "named",
+    "monk",
+    "chapel"
+  ],
+  "packId": "starter-fantasy",
+  "shapeTilt": "rounded"
+}

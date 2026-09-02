@@ -1,0 +1,22 @@
+{
+  "id": "sister-maren",
+  "name": "Sister Maren",
+  "kind": "npc",
+  "species": "human woman",
+  "bodyClass": "upright, composed",
+  "age": "young adult",
+  "face": "keen oval face, arched brows, steady scholar's gaze",
+  "hair": "auburn hair pinned back under a plain white veil",
+  "garb": "black-and-white novice's habit, ink-stained fingers, a satchel of papers",
+  "mood": "measured, diplomatic",
+  "palette": "black and white with a deep blue ink accent",
+  "tags": [
+    "npc",
+    "recruitable",
+    "diplomat",
+    "scholar",
+    "chapel"
+  ],
+  "packId": "starter-fantasy",
+  "shapeTilt": "balanced"
+}

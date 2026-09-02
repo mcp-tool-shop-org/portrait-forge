@@ -1,0 +1,21 @@
+{
+  "id": "pilgrim",
+  "name": "Suspicious Pilgrim",
+  "kind": "npc",
+  "species": "human woman",
+  "bodyClass": "slight, road-worn",
+  "age": "middle-aged",
+  "face": "narrow watchful face, sun-lined, guarded eyes",
+  "hair": "dark hair bound under a travel-stained wimple",
+  "garb": "grey pilgrim's cloak with a scallop-shell badge, staff in hand",
+  "mood": "wary, weighing you",
+  "palette": "ash grey with a single dull red badge",
+  "tags": [
+    "npc",
+    "named",
+    "pilgrim",
+    "story"
+  ],
+  "packId": "starter-fantasy",
+  "shapeTilt": "angular"
+}

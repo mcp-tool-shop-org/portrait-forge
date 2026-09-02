@@ -133,7 +133,7 @@ describe('createOllamaLens', () => {
 
   const readImage = async () => Buffer.from('fake-png-bytes');
 
-  it('posts to /api/chat with images, format json, keep_alive 0, temperature 0', async () => {
+  it('posts to /api/chat with images, format json, keep_alive 5m by default (0 when asked), temperature 0', async () => {
     const fetchFn = makeFetch({ answer: 'yes' });
     const lens = createOllamaLens({ fetchFn, readImage, host: 'http://localhost:11434' });
     await lens.ask('/fake/image.png', makeQuestion());
@@ -143,7 +143,7 @@ describe('createOllamaLens', () => {
     expect(url).toBe('http://localhost:11434/api/chat');
     const body = JSON.parse(String(init.body));
     expect(body.format).toBe('json');
-    expect(body.keep_alive).toBe(0);
+    expect(body.keep_alive).toBe('5m');
     expect(body.options.temperature).toBe(0);
     expect(body.messages[0].images).toEqual([Buffer.from('fake-png-bytes').toString('base64')]);
   });

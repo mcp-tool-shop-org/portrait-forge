@@ -1,0 +1,21 @@
+{
+  "id": "ash-ghoul",
+  "name": "Ash Ghoul",
+  "kind": "monster",
+  "species": "undead ghoul",
+  "bodyClass": "hulking, broad-shouldered, hunched",
+  "age": "long dead",
+  "face": "ash-caked snarling face, cracked black lips, ember-dim eyes",
+  "hair": "hairless, scalp cracked like cooled lava",
+  "garb": "charred remnants of a sexton's tunic, bare clawed hands",
+  "mood": "ravenous, guarding",
+  "palette": "charcoal and ash white with a dying-ember orange accent",
+  "tags": [
+    "enemy",
+    "undead",
+    "brute",
+    "crypt"
+  ],
+  "packId": "starter-fantasy",
+  "shapeTilt": "broken"
+}
