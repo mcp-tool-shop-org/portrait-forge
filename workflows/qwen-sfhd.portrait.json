@@ -1,0 +1,104 @@
+{
+  "_meta": {
+    "id": "qwen-sfhd.portrait",
+    "description": "Canonical portrait: Qwen-Image 2512 bf16 + sfhd_style_v1 LoRA, 832x1216, fixed sampler. design B2 §1 (findings 12-21): one workflow, pinned constants, frozen slot template upstream of this file.",
+    "slots": ["{{seed}}", "{{positive}}", "{{negative}}", "{{prefix}}"]
+  },
+  "3": {
+    "class_type": "UNETLoader",
+    "_meta": { "title": "Load Diffusion Model" },
+    "inputs": {
+      "unet_name": "qwen_image_2512_fp8_e4m3fn.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "4": {
+    "class_type": "CLIPLoader",
+    "_meta": { "title": "Load CLIP" },
+    "inputs": {
+      "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image"
+    }
+  },
+  "5": {
+    "class_type": "VAELoader",
+    "_meta": { "title": "Load VAE" },
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    }
+  },
+  "6": {
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": { "title": "Load LoRA (sfhd house style, design B2 finding 14: at most two LoRAs, house style always present)" },
+    "inputs": {
+      "model": ["3", 0],
+      "lora_name": "sfhd_style_v1_000001250.safetensors",
+      "strength_model": 0.85
+    }
+  },
+  "7": {
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": { "title": "ModelSamplingAuraFlow (shift pinned per Qwen-Image 2512 starter template)" },
+    "inputs": {
+      "model": ["6", 0],
+      "shift": 3.1
+    }
+  },
+  "8": {
+    "class_type": "CLIPTextEncode",
+    "_meta": { "title": "Positive prompt" },
+    "inputs": {
+      "text": "{{positive}}",
+      "clip": ["4", 0]
+    }
+  },
+  "9": {
+    "class_type": "CLIPTextEncode",
+    "_meta": { "title": "Negative prompt" },
+    "inputs": {
+      "text": "{{negative}}",
+      "clip": ["4", 0]
+    }
+  },
+  "10": {
+    "class_type": "EmptySD3LatentImage",
+    "_meta": { "title": "Empty Latent (832x1216 portrait framing, design B2 §1)" },
+    "inputs": {
+      "width": 832,
+      "height": 1216,
+      "batch_size": 1
+    }
+  },
+  "11": {
+    "class_type": "KSampler",
+    "_meta": { "title": "KSampler (fixed sampler/scheduler/steps/cfg, design B2 §1: seed is the only per-candidate variable)" },
+    "inputs": {
+      "model": ["7", 0],
+      "seed": "{{seed}}",
+      "steps": 50,
+      "cfg": 4.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "positive": ["8", 0],
+      "negative": ["9", 0],
+      "latent_image": ["10", 0],
+      "denoise": 1.0
+    }
+  },
+  "12": {
+    "class_type": "VAEDecode",
+    "_meta": { "title": "VAE Decode" },
+    "inputs": {
+      "samples": ["11", 0],
+      "vae": ["5", 0]
+    }
+  },
+  "13": {
+    "class_type": "SaveImage",
+    "_meta": { "title": "Save Image" },
+    "inputs": {
+      "images": ["12", 0],
+      "filename_prefix": "{{prefix}}"
+    }
+  }
+}
