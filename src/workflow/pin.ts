@@ -116,7 +116,7 @@ export interface VariantConstants {
 export function pinnedConstants(): { portrait: PortraitConstants; variant: VariantConstants } {
   return {
     portrait: {
-      baseModel: 'qwen_image_2512_bf16.safetensors',
+      baseModel: 'qwen_image_2512_fp8_e4m3fn.safetensors',
       weightDtype: 'default',
       clip: 'qwen_2.5_vl_7b_fp8_scaled.safetensors',
       clipType: 'qwen_image',

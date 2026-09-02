@@ -38,7 +38,7 @@ describe('pin.ts: portrait workflow slot filling', () => {
   it('leaves non-slot node graph structure (model/lora/size pins) untouched', async () => {
     const raw = await loadWorkflow(portraitPath);
     const graph = fillSlots(raw, { seed: 1, positive: 'x', negative: 'y', prefix: 'p' });
-    expect((graph['3'] as any).inputs.unet_name).toBe('qwen_image_2512_bf16.safetensors');
+    expect((graph['3'] as any).inputs.unet_name).toBe('qwen_image_2512_fp8_e4m3fn.safetensors');
     expect((graph['6'] as any).inputs.lora_name).toBe('sfhd_style_v1_000001250.safetensors');
     expect((graph['6'] as any).inputs.strength_model).toBe(STYLE_STRENGTH);
     expect((graph['10'] as any).inputs.width).toBe(832);
@@ -117,7 +117,7 @@ describe('pin.ts: SHA-256', () => {
 describe('pin.ts: pinnedConstants()', () => {
   it('reports the constants baked into the portrait workflow file', () => {
     const constants = pinnedConstants();
-    expect(constants.portrait.baseModel).toBe('qwen_image_2512_bf16.safetensors');
+    expect(constants.portrait.baseModel).toBe('qwen_image_2512_fp8_e4m3fn.safetensors');
     expect(constants.portrait.lora).toBe('sfhd_style_v1_000001250.safetensors');
     expect(constants.portrait.styleStrength).toBe(STYLE_STRENGTH);
     expect(constants.portrait.sampler).toBe('euler');

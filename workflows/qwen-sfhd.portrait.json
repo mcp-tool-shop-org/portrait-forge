@@ -8,7 +8,7 @@
     "class_type": "UNETLoader",
     "_meta": { "title": "Load Diffusion Model" },
     "inputs": {
-      "unet_name": "qwen_image_2512_bf16.safetensors",
+      "unet_name": "qwen_image_2512_fp8_e4m3fn.safetensors",
       "weight_dtype": "default"
     }
   },
