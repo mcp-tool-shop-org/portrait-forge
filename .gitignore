@@ -1,6 +1,6 @@
 node_modules/
 dist/
-registry/
+/registry/
 *.log
 .env
 _smoke/

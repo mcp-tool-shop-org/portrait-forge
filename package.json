@@ -1,7 +1,7 @@
 {
   "name": "@mcptoolshop/portrait-forge",
   "version": "0.1.0",
-  "description": "Consistent character portraits from text descriptions via one pinned ComfyUI workflow (local or Comfy Cloud), a house-style LoRA, and a question-based acceptance gate.",
+  "description": "Consistent character portraits from text descriptions: one pinned ComfyUI workflow (local or Comfy Cloud), a house-style LoRA, a question-based acceptance gate with a vision verifier, and a per-entity registry so a face stays the same across sessions and variants.",
   "type": "module",
   "private": true,
   "bin": {
@@ -17,7 +17,8 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "verify": "npm run typecheck && npm test"
+    "verify": "npm run typecheck && npm test",
+    "test:watch": "vitest"
   },
   "engines": {
     "node": ">=20"
